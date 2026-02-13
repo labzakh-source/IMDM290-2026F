@@ -1,8 +1,6 @@
 # IMDM 290 � 2026 Spring
-
 ![star](https://youtu.be/-FTd9oJzpw0)
 Course material repository for IMDM 290 (Unity).
-
 ## At a Glance
 - Engine: Unity `6000.3.0f1` (see `ProjectSettings/ProjectVersion.txt`)
 - Core folders: `Assets`, `Packages`, `ProjectSettings`
