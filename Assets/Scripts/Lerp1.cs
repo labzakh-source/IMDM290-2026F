@@ -25,11 +25,21 @@ public class Lerp1 : MonoBehaviour
         for (int i =0; i < numSphere; i++){
             // Random start positions
             float r = 10f;
-            startPosition[i] = new Vector3(r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f), r * Random.Range(-1f, 1f));        
-
-            r = 3f; // radius of the circle
+            startPosition[i] = new Vector3(
+                r * Random.Range(-1f, 1f), 
+                r * Random.Range(-1f, 1f), 
+                r * Random.Range(-1f, 1f));        
+        
             // Circular end position
-            endPosition[i] = new Vector3(r * Mathf.Sin(i * 2 * Mathf.PI / numSphere), r * Mathf.Cos(i * 2 * Mathf.PI / numSphere));
+            float baseRadius = 2.5f;
+            float starPoints = 5f;
+
+            float angle = i * 2 * Mathf.PI / numSphere;
+            float radius = baseRadius * (1f + 0.5f * Mathf.Sin(starPoints * angle));
+
+            float x = radius * Mathf.Cos(angle);
+            float y = radius * Mathf.Sin(angle);
+            endPosition[i] = new Vector3(x, y, 10f);
         }
         // Let there be spheres..
         for (int i =0; i < numSphere; i++){
@@ -43,9 +53,7 @@ public class Lerp1 : MonoBehaviour
             // Color. Get the renderer of the spheres and assign colors.
             Renderer sphereRenderer = spheres[i].GetComponent<Renderer>();
             // HSV color space: https://en.wikipedia.org/wiki/HSL_and_HSV
-            float hue = (float)i / numSphere; // Hue cycles through 0 to 1
-            Color color = Color.HSVToRGB(hue, 1f, 1f); // Full saturation and brightness
-            sphereRenderer.material.color = color;
+            sphereRenderer.material.color = new Color(.1f, 0.6f, .3f);
         }
     }
 
@@ -67,12 +75,11 @@ public class Lerp1 : MonoBehaviour
             spheres[i].transform.position = Vector3.Lerp(startPosition[i], endPosition[i], lerpFraction);
             // For now, start positions and end positions are fixed. But what if you change it over time?
             // startPosition[i]; endPosition[i];
-
-            // Color Update over time
             Renderer sphereRenderer = spheres[i].GetComponent<Renderer>();
-            float hue = (float)i / numSphere; // Hue cycles through 0 to 1
-            Color color = Color.HSVToRGB(Mathf.Abs(hue * Mathf.Sin(time)), Mathf.Cos(time), 2f + Mathf.Cos(time)); // Full saturation and brightness
-            sphereRenderer.material.color = color;
+            // Color Update over time
+            float g = 0.7f + 0.4f * Mathf.Sin(time + i * 0.05f);
+            sphereRenderer.material.color = new Color(g, 0f, 0.1f);
+            
         }
     }
 }
