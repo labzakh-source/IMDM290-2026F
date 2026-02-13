@@ -1,4 +1,3 @@
-# IMDM 290 � 2026 Spring
 # Star video: https://youtu.be/-FTd9oJzpw0
 Course material repository for IMDM 290 (Unity).
 
